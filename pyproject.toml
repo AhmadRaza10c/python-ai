@@ -1,0 +1,19 @@
+[project]
+name = "python-ai"
+version = "0.1.0"
+description = "Python for AI"
+readme = "README.md"
+authors = [
+    { name = "AhmadRaza10c", email = "ahmadraza10c@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "ipykernel>=7.4.0",
+    "ollama>=0.6.3",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=7.4.0",
+]
+
