@@ -7,15 +7,19 @@
 Run any script using `uv`:
 ```bash
 uv run code/lesson_01_intro.py
+```
 
 
 
 
 
 
+## Module 1 Project: AI Prompt Kit
 
 A Python tool that turns a local business's details into 3 ready-to-use AI prompts.
 
 **Run:** `uv run code/project_m1_prompt_kit.py`
 
-![Prompt Kit running](docs/project-m1-run.png)
+![Prompt Kit running](docs/image.png)
+
+**Who would pay for this:** small shop owners who want AI help but don't know what to type and how to give prompt to AI.
