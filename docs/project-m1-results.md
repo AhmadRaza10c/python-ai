@@ -146,4 +146,14 @@ Lahore:
 **Manager's Pro-Tip:** Set your Instagram ads to run specifically between **2:00 PM and 6:00 PM** (when students are finishing classes 
 and craving a snack) for the highest conversion rate!
 
-**Useful?** yes, because it gives me correct answer 
+**Useful?** yes, because it gives me correct answer
+## Prompt 4: WhatsApp Auto-Reply
+
+**Prompt:** You are the assistant of sweet crumbs, a bakery in lahore. Write a short, friendly WhatsApp auto-reply for university students who ask about prices. Ask for their order details and keep it under 40 words.
+**AI answer:** 
+Hi! Thanks for reaching out to Sweet Crumbs! 🧁 
+
+To give you the best prices, please share your order details (items & quantity). We'll get 
+back to you shortly! ✨
+
+**Useful?** yes because it's asking for my requirnments
