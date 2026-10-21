@@ -1,30 +1,26 @@
-"""Lesson 1.5: AI Model Profile Card and Cost Estimator."""
+"""Lesson 1.5: AI Model Profile Card with a cost estimate."""
 
-# Model Profile Variables (4 Core Types)
-model_name: str = "gemini-4-argon"
-max_tokens: int = 500
-temperature: float = 0.7
-is_streaming: bool = False
+# Why: one variable per fact, so the card is easy to update when the model changes
+model_name = "llama3.2"
+context_window = 128000
+price_per_1k_pkr = 0.5
+runs_locally = True
 
-# Price per 1,000 tokens (PKR)
-price_per_1k_tokens: float = 0.50   
+print("--- AI Model Profile Card ---")
+print(f"Model: {model_name} {type(model_name)}")
+print(f"Context window: {context_window} tokens {type(context_window)}")
+print(f"Price per 1K tokens: {price_per_1k_pkr} PKR {type(price_per_1k_pkr)}")
+print(f"Runs locally: {runs_locally} {type(runs_locally)}")
 
-# 2. Print Profile Card with Values and Types
-print("=== AI Model Profile Card ===")
-print(f"Model Name   : {model_name} | Type: {type(model_name)}")
-print(f"Max Tokens   : {max_tokens} | Type: {type(max_tokens)}")
-print(f"Temperature  : {temperature} | Type: {type(temperature)}")
-print(f"Streaming    : {is_streaming} | Type: {type(is_streaming)}")
-print("=============================\n")
+# Why: input() always returns text, so we convert it with int() before doing maths
+tokens_per_chat = int(input("Tokens per chat: "))
 
-# 3. User Input & Cost Estimation
+# Why: round() keeps the cost short and readable for the client
+estimated_cost = round(tokens_per_chat / 1000 * price_per_1k_pkr, 2)
+print(f"Tokens per chat: {tokens_per_chat}")
+print(f"Estimated cost: {estimated_cost} PKR")
 
-tokens_input = input("Enter tokens used in chat: ")
-tokens_used = int(tokens_input)
-
-# Cost formula: (tokens / 1000) * price_per_1k
-estimated_cost = (tokens_used / 1000) * price_per_1k_tokens
-
-print("\n--- Cost Breakdown ---")
-print(f"Tokens Used    : {tokens_used}")
-print(f"Estimated Cost : {round(estimated_cost, 2)} PKR")
+# Stretch: monthly cost for 30 days
+chats_per_day = int(input("Chats per day: "))
+monthly_cost = round(tokens_per_chat / 1000 * price_per_1k_pkr * chats_per_day * 30, 2)
+print(f"Estimated monthly cost (30 days): {monthly_cost} PKR")
