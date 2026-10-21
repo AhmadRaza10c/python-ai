@@ -1,60 +1,56 @@
 """Lesson 1.8: Rule-based chatbot for Sweet Crumbs bakery (example business)."""
 
 BOT = "Sweet Crumbs Bot"
-print(f"{BOT}: Hi! I can help with hours, prices, location and orders. Type 'bye' to exit.")
+print(f"{BOT}: Hi! Ask about hours, prices, location or orders. Type 'bye' to exit.")
 
-# Memory: the bot remembers the user's name for the whole chat
+# Why: the name is asked ONCE before the loop, so the bot remembers it for the whole chat
 name = input(f"{BOT}: What is your name? ").strip().title()
 if name == "":
-    name = "friend"
-
-print(f"{BOT}: Nice to meet you, {name}!")
+    name = "Friend"
 
 count = 0
 unanswered = 0
+complaints = 0
+
 while True:
     message = input(f"{name}: ").strip().lower()
     count += 1
 
-    # 1. Exit Rule
-    if message == "bye" or message == "exit":
-        print(f"{BOT}: Goodbye, {name}! Thanks for visiting.")
-        break
+    # Why: spaces around the text let us match whole words only,
+    # so " late " is found in "my order is late" but NOT inside "chocolate"
+    clean_text = message.replace("?", "").replace(".", "").replace(",", "").replace("!", "")
+    padded = " " + clean_text + " "
 
-    # 2. Empty Input
+    if message == "bye":
+        print(f"{BOT}: Take care, {name}!")
+        break
     elif message == "":
         print(f"{BOT}: Please type a question.")
-
-    # 3. Complaints first, so an unhappy customer always reaches a human
-    elif "refund" in message or "complaint" in message or "late" in message:
+    # Why: handover and complaints come first, so an unhappy customer always reaches a human
+    elif message == "agent" or message == "human":
+        print(f"{BOT}: Connecting you to a human...")
+        break
+    elif " refund " in padded or " complaint " in padded or " late " in padded:
+        complaints += 1
         print(f"{BOT}: Sorry about that. A manager will call you within 1 hour.")
-
-    # 4. Opening Hours
-    elif "hour" in message or "open" in message or "time" in message:
+    elif "hour" in message or "open" in message or "timing" in message or " time " in padded:
         print(f"{BOT}: We are open 9 am to 10 pm, every day.")
-
-    # 5. Prices
     elif "price" in message or "cost" in message or "how much" in message:
         print(f"{BOT}: Cakes start at 1,500 PKR. Cupcakes are 250 PKR each.")
-
-    # 6. Location
     elif "where" in message or "location" in message or "address" in message:
         print(f"{BOT}: We are on Main Boulevard, Lahore.")
-
-    # 7. Orders & Delivery
     elif "order" in message or "delivery" in message:
         print(f"{BOT}: Order on WhatsApp. Delivery is free over 3,000 PKR.")
-
-    # 8. Greetings (Exact match, because "hi" is hiding inside words like "this" and "which")
+    # Why: short words like "hi" are checked with == / startswith, because "hi" hides inside "which"
     elif message == "hi" or message == "hello" or message.startswith("salam"):
-        print(f"{BOT}: Hello again, {name}! How can I help?")
-
-    # 9. Fallback (Rule fails -> Prepare prompt for Module 2 LLM)
+        print(f"{BOT}: Hello {name}! How can I help?")
     else:
         unanswered += 1
-        prompt = f"You are the friendly assistant of Sweet Crumbs bakery. Answer in 2 lines: {message}"
-        print(f"{BOT}: I am not sure yet. In Module 2, an AI will answer using this prompt:")
-        print(f"  {prompt}")
+        question = message.capitalize()[:150]
+        print(f"{BOT}: I am not sure yet. In Module 2, an AI will answer: "
+              f"You are the friendly assistant of Sweet Crumbs bakery. "
+              f"Answer in 2 lines: {question}")
 
 print("=" * 40)
 print(f"Chat summary: {count} messages, {unanswered} unanswered.")
+print(f"Complaints received: {complaints}")
