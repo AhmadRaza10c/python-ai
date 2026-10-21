@@ -38,3 +38,14 @@ A Python tool that turns a local business's details into 3 ready-to-use AI promp
 | Human handover | agent, human | Connecting you to a human... |
 
 **Run:** `uv run code/lesson_08_mini_chatbot.py`
+
+
+## Module 1 Project Part 2: AI Front Desk
+
+A Python front desk for Sweet Crumbs bakery: free rule-based answers, exact price quotes with discount and delivery, and AI-ready prompts for questions the rules cannot answer.
+
+**Run:** `uv run code/project_m1_front_desk.py`
+
+![Front Desk running](docs/project-m1-part2-run.png)
+
+**Value for the owner:** it answers the repeated questions and price quotes instantly, so staff save time every day, and the session report shows which questions customers ask that the bakery still cannot answer.
