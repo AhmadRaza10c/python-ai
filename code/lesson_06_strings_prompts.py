@@ -5,18 +5,17 @@ raw_name = input("Enter your name: ")
 raw_question = input("Enter your question: ")
 
 # 2. Cleaning inputs
-# .strip() removes outer spaces, .title() capitalizes each word
 clean_name = raw_name.strip().title()
-# .capitalize() makes only the first character uppercase
+
 clean_question = raw_question.strip().capitalize()
 
 # 3. Check if question mentions "python" (case-insensitive)
 mentions_python = "python" in clean_question.lower()
 
 # 4. Limit length & Token estimation
-# Slice to maximum 150 characters
+
 limited_question = clean_question[:150]
-# Rule of thumb: ~4 characters = 1 token
+
 estimated_tokens = round(len(limited_question) / 4)
 
 # 5. Multi-line Prompt Template
