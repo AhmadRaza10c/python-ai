@@ -1,37 +1,38 @@
-"""Lesson 1.6: Prompt Cleaner & Formatter for AI Models"""
+"""Lesson 1.6: Prompt Cleaner - cleans, measures and safely sizes a customer question."""
 
-# 1. User inputs (raw & messy)
-raw_name = input("Enter your name: ")
-raw_question = input("Enter your question: ")
+raw_name = input("Your name: ")
+raw_question = input("Your question: ")
 
-# 2. Cleaning inputs
+# Why: strip() removes extra spaces and title()/capitalize() fix random capitals,
+# so the AI always receives a tidy name and question
 clean_name = raw_name.strip().title()
-
 clean_question = raw_question.strip().capitalize()
 
-# 3. Check if question mentions "python" (case-insensitive)
+# Stretch: hide a bad word before the prompt is built
+clean_question = clean_question.replace("stupid", "***")
+
+characters = len(clean_question)
+
+# Why: about 4 characters = 1 token, so this is a quick size estimate before paying an AI
+estimated_tokens = round(characters / 4)
+
+# Why: lower() first, so "Python", "PYTHON" and "python" are all found
 mentions_python = "python" in clean_question.lower()
 
-# 4. Limit length & Token estimation
+# Why: slicing to 150 characters stops one huge question from becoming an expensive prompt
+short_question = clean_question[:150]
 
-limited_question = clean_question[:150]
+prompt = f"""You are a friendly Python tutor.
+Greet {clean_name} by name and answer in 3 short lines.
+Question: {short_question}"""
 
-estimated_tokens = round(len(limited_question) / 4)
+# Stretch: estimated cost with 2 decimals (example price 0.5 PKR per 1K tokens)
+estimated_cost = estimated_tokens / 1000 * 0.5
 
-# 5. Multi-line Prompt Template
-final_prompt = f"""You are a professional AI tutor helping {clean_name}.
-Provide a clear and concise answer in maximum 3 sentences.
-
-User Question: {limited_question}"""
-
-# 6. Displaying results
-print("\n" + "=" * 45)
-print("--- CLEANED SUMMARY ---")
-print(f"User Name        : {clean_name}")
-print(f"Original Length  : {len(clean_question)} characters")
-print(f"Prompt Length    : {len(limited_question)} characters")
-print(f"Estimated Tokens : ~{estimated_tokens}")
-print(f"Mentions Python? : {mentions_python}")
-print("=" * 45)
-print("\n--- FINAL PROMPT SENT TO AI ---")
-print(final_prompt)
+print("=" * 40)
+print(f"Cleaned question: {clean_question}")
+print(f"Characters: {characters}, about {estimated_tokens} tokens")
+print(f"Mentions Python: {mentions_python}")
+print(f"Estimated cost: {estimated_cost:.2f} PKR")
+print("=" * 40)
+print(prompt)
